@@ -1,0 +1,53 @@
+{%extends "base.html"%}
+<!-- prettierignore -->
+{%block title %}Profile Page{%endblock%}
+<!-- prettierignore -->
+{% block content %}
+<div class="row content-align-center">
+  <div class="col-md-8">
+    <div class="jumbotron m-3">
+      <h1 class="display-4 text-center">Hello {{user.first_name}}!</h1>
+      <p class="lead">
+        Welcome to your account center. View your information below
+      </p>
+      <hr class="my-4" />
+      <div class="col-md-8">
+        <div><b>Full Name: </b> {{user.first_name}} {{user.last_name}}</div>
+        <div><b>Email: </b>{{user.email}}</div>
+      </div>
+    </div>
+    <hr class="my-4" />
+  </div>
+  <div class="col-md-8">
+    {%for feedback in user.feedbacks %}
+    <div class="card m-4" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title"><b>{{feedback.title}}</b></h5>
+        <p class="card-text">{{feedback.content}}</p>
+        <p class="card-text">
+          <a href=" /feedback/{{feedback.id}}/update">Edit</a>
+        </p>
+        <p class="card-text">
+
+          <form action="/feedback/{{feedback.id}}/delete" method="post">
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+          </form>
+        </p>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  <div class="col-md-8 m-2 text-center">
+    <a
+      href="/users/{{user.username}}/feedback/add"
+      class="btn btn-outline-primary"
+      >Add feedback</a
+    >
+    <form action="/users/{{user.username}}/delete" method="post">
+      <button type="submit" class="btn btn-outline-danger">DELETE USER</button>
+    </form>
+  </div>
+  <!-- prettier-ignore -->
+</div>
+<!-- prettierignore -->
+{%endblock %}
